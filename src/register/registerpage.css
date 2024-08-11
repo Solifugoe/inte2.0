@@ -1,0 +1,91 @@
+body.register-page {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('../src/assets/images/fondo.jpg');
+}
+
+.register-container {
+    background-color: #5a9dce;
+    color: black;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.register-box {
+    position: relative;
+    background: #95b8d1;
+    padding: 3rem;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.register-box::before, .register-box::after {
+    content: '';
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    background-size: 70px;
+}
+
+.register-box::before {
+    top: -5px;
+    left: 5px;
+}
+
+.register-box::after {
+    top: -5px;
+    right: 5px;
+    transform: scaleX(-1);
+}
+
+.register-box h2 {
+    margin-bottom: 1rem;
+}
+
+.register-box p {
+    margin-bottom: 2rem;
+}
+
+.register-box form {
+    display: flex;
+    flex-direction: column;
+}
+
+.register-box label {
+    margin-bottom: 0.5rem;
+    text-align: left;
+}
+
+.register-box input {
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #7c9ab5;
+    color: black;
+}
+
+.register-box button {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 5px;
+    background: #7c9ab5; 
+    cursor: pointer;
+    font-weight: bold;
+
+}
+
+.register-box button:hover {
+    background-color: #5a9dce;
+}
+
+.register-box input::placeholder {
+    color: black;
+}
+
