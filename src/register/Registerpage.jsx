@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { doc, setDoc } from 'firebase/firestore';
 import '../register/registerpage.css';
-import { auth } from '../firebaseConfig/firebase';
+import { auth, db } from '../firebaseConfig/firebase';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,20 +10,26 @@ export const Registerpage = () => {
   const [fullname, setFullname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [codigo, setCodigo] = useState('');
   const [error, setError] = useState(null);
 
-  const navigate = useNavigate(); // Use useNavigate to define navigate
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(null); // Clear previous errors
+    setError(null);
     
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password, codigo);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
+
+      // Guardar la información del usuario en Firestore
+      await setDoc(doc(db, 'datos_usuario', user.uid), {
+        fullname: fullname,
+        email: email,
+        uid: user.uid
+      });
+
       console.log('User registered:', user);
-      // Call registro function after successful registration
       registro();
     } catch (error) {
       setError(error.message);
@@ -45,9 +52,7 @@ export const Registerpage = () => {
     <div className="register-container">
       <div className="register-box">
         <h1>Registro</h1>
-        {error && <p className=" error-message"
-        style={{color: "red"}}
-        >{error}</p>}
+        {error && <p className="error-message" style={{color: "red"}}>{error}</p>}
         <form onSubmit={handleSubmit}>
           <label htmlFor="fullname">Name</label>
           <input
